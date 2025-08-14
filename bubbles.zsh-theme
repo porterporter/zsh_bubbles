@@ -34,4 +34,4 @@
 # autoload -U add-zsh-hook
 # add-zsh-hook precmd _prompt_bubbles_precmd
 
-PROMPT="DEBUG "
+# PROMPT="DEBUG "
