@@ -23,19 +23,19 @@ function _bubble() {
   echo $str
 }
 
- [[ "$TERM_PROGRAM" == "Apple_Terminal" ]] && return
+function prompt_bubbles_setup() {
+  # prompt
+  local school_warning=""
+  [[ "$USER" == "pmilton" ]] && school_warning="\uF005 "
 
-# prompt
-local school_warning=""
-[[ "$USER" == "pmilton" ]] && school_warning="\uF005 "
+  function _set_rprompt_dir() {
+    export RPROMPT="$(_bubble "\uE5FF %c" "#43CCEA")"
+    [[ -n "$(_git_prompt_info)" ]] && RPROMPT+=" $(_bubble "\ue725 $(_git_prompt_info)" "#FF9248")"
+  }
+  add-zsh-hook precmd _set_rprompt_dir
 
-function _set_rprompt_dir() {
-	export RPROMPT="$(_bubble "\uE5FF %c" "#43CCEA")"
-
-	[[ -n "$(_git_prompt_info)" ]] && RPROMPT+=" $(_bubble "\ue725 $(_git_prompt_info)" "#FF9248")"
+  export PROMPT="%(?:$(_bubble "$school_warning%n \u276f" "#3EC669") :$(_bubble "$school_warning%n \u276f" "#E64747") "
+  _set_rprompt_dir
 }
-# add-zsh-hook chpwd _set_rprompt_dir
-add-zsh-hook precmd _set_rprompt_dir
 
-export PROMPT="%(?:$(_bubble "$school_warning%n \u276f" "#3EC669") :$(_bubble "$school_warning%n \u276f" "#E64747") "
-_set_rprompt_dir
+prompt_bubbles_setup
